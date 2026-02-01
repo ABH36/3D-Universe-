@@ -2,15 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, #root {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background: #000000;
-  overflow: hidden;
+/* ✅ MOBILE TOUCH FIX: Browser scroll/zoom band karo taaki 3D control chale */
+canvas {
+  touch-action: none; 
+  outline: none;
+  -webkit-tap-highlight-color: transparent; /* Blue box hatane ke liye */
 }
 
-canvas {
-  touch-action: none; /* Mobile par scroll rokne ke liye */
+/* Page ko hilne se roko */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Page scroll band */
+  width: 100%;
+  height: 100%;
+  overscroll-behavior: none; /* Pull-to-refresh band */
 }

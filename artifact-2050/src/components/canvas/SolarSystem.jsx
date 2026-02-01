@@ -4,6 +4,7 @@ import { Sphere, useTexture, Trail, Text } from '@react-three/drei';
 import * as THREE from 'three';
 import { useStore } from '../../stores/use3DStore';
 import Earth from './Planet'; 
+import Satellites from './Satellites';
 
 // ✅ 1. USE LOCAL TEXTURES (High Quality & Offline)
 const planetTextures = {
@@ -123,9 +124,7 @@ const MovingEarth = () => {
     const angleRef = useRef(0);
     
     useFrame((state, delta) => {
-        // ✅ Earth pe bhi Time Control lagaya
         angleRef.current += delta * 1.0 * 0.1 * timeSpeed;
-
         const distance = 23; 
         const x = Math.sin(angleRef.current) * distance;
         const z = Math.cos(angleRef.current) * distance;
@@ -144,9 +143,17 @@ const MovingEarth = () => {
             setFocusTarget(new THREE.Vector3(), 'Earth');
         }}>
             <Earth />
+            
+            {/* ✅ NEW: SATELLITES ATTACHED TO EARTH */}
+            {/* Scale adjust kiya taaki Earth ke size ke hisaab se fit ho */}
+            <group scale={[1.2, 1.2, 1.2]}> 
+                <Satellites />
+            </group>
+
             <Trail width={3} length={12} color="#4ca6ff" attenuation={(t) => t * t} />
         </group>
     )
 }
+
 
 export default SolarSystem;
